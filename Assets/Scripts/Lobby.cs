@@ -37,7 +37,10 @@ public class Lobby : MonoBehaviour
             RegionEndPoint = RegionEndpoint.APNortheast1, //東京の場合
             AccessKeyId = "AKIAX5IKZ7C57ZWAT34O", // ダウンロードしたcsvのAccess key IDの値
             SecretAccessKey = "5p08FhR8uRfjmkk2nBfZtwzDtoRNw1+sGqIgdg+M", // ダウンロードしたcsvのSecret access keyの値
-            GameLiftAliasId = "alias-a53d3f24-6c22-4e2c-93b8-146529f0a231" // 作成したAliasのID alias- から始まるID
+            GameLiftAliasId = "alias-82448476-b351-41f4-af6d-af0e1b5d06fd" // 作成したAliasのID alias- から始まるID
+                                                                           //AccessKeyId = "AKIA3AGHUMXVRSJ3P4VK",
+                                                                           //SecretAccessKey = "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",
+                                                                           //GameLiftAliasId = "alias-ddcf45ea-b8e1-48ae-b02a-45449674cee7"
         };
 
         // AmazonGameLiftClientクラスの初期化
@@ -53,16 +56,29 @@ public class Lobby : MonoBehaviour
             var sessions = SearchRooms();
             ui.ClearAllPanels();
             ui.CreateSessionPanels(sessions, JoinRoom);
-            //, JoinRoom
         });
 
         ui.SendTest1Button.onClick.AddListener(() =>
         {
-            if (realTimeClient != null) realTimeClient.SendMessage(DeliveryIntent.Reliable, "test");
+            if (realTimeClient != null)
+            {
+                realTimeClient.SendMessage(DeliveryIntent.Reliable, "test");
+            }
         });
         ui.SendTest2Button.onClick.AddListener(() =>
         {
-            if (realTimeClient != null) realTimeClient.SendEvent(RealTimeClient.OpCode.SendTest2);
+            if (realTimeClient != null)
+            {
+                realTimeClient.SendEvent(RealTimeClient.OpCode.SendTest2);
+            }
+        });
+        ui.update.onClick.AddListener(() =>
+        {
+            if(realTimeClient != null)
+            {
+                ui.InfoText.gameObject.SetActive(false);
+                ui.InfoText.gameObject.SetActive(true);
+            }
         });
     }
 
@@ -78,7 +94,7 @@ public class Lobby : MonoBehaviour
             Name = roomName
         };
         var response = gameLiftClient.CreateGameSession(request);
-        ui.InfoText.text += "CreateRoom\n";
+        ui.InfoText.text = "CreateRoom\n";
     }
 
     //ルームの検索

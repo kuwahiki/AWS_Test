@@ -12,7 +12,7 @@ using Aws.GameLift.Realtime.Types;
 
 public class LobbyUI : MonoBehaviour
 {
-    [SerializeField] public Button CreateRoomButton, SearchRoomButton, SendTest1Button, SendTest2Button;
+    [SerializeField] public Button CreateRoomButton, SearchRoomButton, SendTest1Button, SendTest2Button,update;
     [SerializeField] public Text InfoText,RoomInfo;
     // Start is called before the first frame update
     void Start()
